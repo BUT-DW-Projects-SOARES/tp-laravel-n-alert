@@ -10,10 +10,10 @@
 
 <body>
     <h1>Liste des clients</h1>
-    <p><a href="{{ route('alert.index') }}">Voir les alertes</a></p>
+    <p><a href="{{ route('home.index') }}">Voir l'accueil</a></p>
     <ul>
         @foreach ($customers as $customer)
-            <li>{{ $customer->firstname }} {{ $customer->lastname }} ({{ $customer->email }})</li>
+        <li>{{ $customer->firstname }} {{ $customer->lastname }} ({{ $customer->email }})</li>
         @endforeach
     </ul>
 </body>

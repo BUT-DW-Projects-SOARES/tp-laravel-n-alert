@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AlertController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\HomeController;
 use App\Models\Alert;
 use App\Models\Customer;
 use Illuminate\Support\Facades\Route;
@@ -22,3 +23,5 @@ Route::get('/alert', [AlertController::class, 'index'])->name('alert.index');
 Route::get('/alert/{alert}', [AlertController::class, 'show'])->name('alert.show');
 
 Route::get('/customer', [CustomerController::class, 'index'])->name('customer.index');
+
+Route::get('/home', [HomeController::class, 'index'])->name('home.index');
