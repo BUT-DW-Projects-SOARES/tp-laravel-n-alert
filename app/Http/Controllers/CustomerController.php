@@ -9,6 +9,7 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        return Customer::all();
+        $customers = Customer::all();
+        return view('customer.index', ['customers' => $customers]);
     }
 }
