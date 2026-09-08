@@ -19,7 +19,7 @@ class AlertFactory extends Factory
     {
         return [
             'title' => fake()->sentence(),
-            'description' => fake()->paragraph(),
+            'description' => fake()->text(),
             'published_at' => fake()->dateTimeThisMonth(),
         ];
     }
