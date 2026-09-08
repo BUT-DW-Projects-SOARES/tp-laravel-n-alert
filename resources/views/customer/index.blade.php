@@ -13,7 +13,7 @@
     <p><a href="{{ route('home.index') }}">Voir l'accueil</a></p>
     <ul>
         @foreach ($customers as $customer)
-        <li>{{ $customer->firstname }} {{ $customer->lastname }} ({{ $customer->email }})</li>
+            <li><a href="{{ route('customer.show', ['customer' => $customer]) }}">{{ $customer->label }}</a></li>
         @endforeach
     </ul>
 </body>
