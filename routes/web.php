@@ -13,3 +13,7 @@ Route::get('/test', function () {
 Route::get('/hello/{name?}', function ($name = 'Guest') {
     return $name;
 });
+
+Route::get("/alert", function () {
+    return  "alert";
+});
