@@ -9,4 +9,9 @@ class Customer extends Model
 {
     /** @use HasFactory<\Database\Factories\CustomerFactory> */
     use HasFactory;
+
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class);
+    }
 }

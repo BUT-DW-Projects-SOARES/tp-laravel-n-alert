@@ -2,13 +2,14 @@
 
 namespace Database\Factories;
 
+use App\Models\Contact;
 use App\Models\Customer;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Customer>
+ * @extends Factory<Contact>
  */
-class CustomerFactory extends Factory
+class ContactFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,7 +19,10 @@ class CustomerFactory extends Factory
     public function definition(): array
     {
         return [
-            'label' => fake()->sentence(),
+            'lastname' => fake()->lastName(),
+            'firstname' => fake()->firstName(),
+            'email' => fake()->email(),
+            'customer_id' => Customer::inRandomOrder()->first(),
         ];
     }
 }
