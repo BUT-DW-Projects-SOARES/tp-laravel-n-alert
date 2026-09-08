@@ -18,7 +18,7 @@ Route::get('/hello/{name?}', function ($name = 'Guest') {
     return $name;
 });
 
-Route::get('/alert', [AlertController::class, 'index']);
-Route::get('/alert/{alert}', [AlertController::class, 'show']);
+Route::get('/alert', [AlertController::class, 'index'])->name('alert.index');
+Route::get('/alert/{alert}', [AlertController::class, 'show'])->name('alert.show');
 
 Route::get('/customer', [CustomerController::class, 'index']);

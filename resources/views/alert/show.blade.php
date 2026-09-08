@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <p><a href="{{ route('alert.index') }}">back to list</a></p>
     <h1>{{ $alert->title }}</h1>
     <p>{{ $alert->published_at }}</p>
     <p>{{ $alert->description }}</p>

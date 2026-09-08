@@ -11,7 +11,7 @@
 <body>
     <ul>
         @foreach ($alerts as $alert)
-            <li>{{ $alert->title }}</li>
+        <li><a href="{{ route('alert.show', $alert) }}">{{ $alert->title }}</a></li>
         @endforeach
     </ul>
 </body>
