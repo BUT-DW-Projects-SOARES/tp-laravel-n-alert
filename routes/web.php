@@ -19,5 +19,6 @@ Route::get('/hello/{name?}', function ($name = 'Guest') {
 });
 
 Route::get('/alert', [AlertController::class, 'index']);
+Route::get('/alert/{id}', [AlertController::class, 'show']);
 
 Route::get('/customer', [CustomerController::class, 'index']);
