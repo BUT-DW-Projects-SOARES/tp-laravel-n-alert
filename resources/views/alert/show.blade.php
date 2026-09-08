@@ -5,4 +5,7 @@
     <h1>{{ $alert->title }}</h1>
     <p>{{ $alert->published_at->isoFormat('L HH:mm') }}</p>
     <p>{{ $alert->description }}</p>
+    @if ($alert->category)
+        <p>Category: {{ $alert->category->label }}</p>
+    @endif
 </x-layout.base>
