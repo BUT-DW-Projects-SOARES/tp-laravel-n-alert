@@ -13,9 +13,8 @@ class AlertController extends Controller
         return view('alert.index', ['alerts' => $alerts]);
     }
 
-    public function show($id)
+    public function show(Alert $alert)
     {
-        $alert = Alert::findOrFail($id);
         return view('alert.show', ['alert' => $alert]);
     }
 }
