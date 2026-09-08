@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Alert;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,6 +22,7 @@ class AlertFactory extends Factory
             'title' => fake()->sentence(),
             'description' => fake()->text(),
             'published_at' => fake()->dateTimeThisMonth(),
+            'category_id' => Category::inRandomOrder()->first(),
         ];
     }
 }
