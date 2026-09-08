@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\AlertController;
+use App\Http\Controllers\CustomerController;
+use App\Models\Alert;
+use App\Models\Customer;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -14,6 +18,6 @@ Route::get('/hello/{name?}', function ($name = 'Guest') {
     return $name;
 });
 
-Route::get("/alert", function () {
-    return  "alert";
-});
+Route::get('/alert', [AlertController::class, 'index']);
+
+Route::get('/customer', [CustomerController::class, 'index']);
