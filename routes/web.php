@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AlertController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
 use App\Models\Alert;
@@ -26,3 +27,6 @@ Route::get('/customer', [CustomerController::class, 'index'])->name('customer.in
 Route::get('/customer/{customer}', [CustomerController::class, 'show'])->name('customer.show');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
+
+Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
+Route::get('/category/{category}', [CategoryController::class, 'show'])->name('category.show');
