@@ -10,6 +10,6 @@ Route::get('/test', function () {
     return view('test');
 });
 
-Route::get('/hello/{name}', function ($name) {
+Route::get('/hello/{name?}', function ($name = 'Guest') {
     return $name;
 });
