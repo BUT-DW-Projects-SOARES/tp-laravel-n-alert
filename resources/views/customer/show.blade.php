@@ -5,9 +5,18 @@
             <h1 class="mt-4">{{ $customer->label }}</h1>
             <p>Customer ID: #{{ $customer->id }}</p>
         </div>
-        <a href="{{ route('customer.edit', ['customer' => $customer->id]) }}" class="btn btn-secondary">
-            Edit Customer
-        </a>
+        <div class="flex gap-2">
+            <a href="{{ route('customer.edit', ['customer' => $customer->id]) }}" class="btn btn-secondary">
+                Edit Customer
+            </a>
+            <form action="{{ route('customer.destroy', ['customer' => $customer->id]) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this customer?');">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-secondary" style="background: rgba(239, 68, 68, 0.1); color: var(--text-danger); border-color: rgba(239, 68, 68, 0.2);">
+                    Delete Customer
+                </button>
+            </form>
+        </div>
     </div>
 
     <div class="glass-card mb-8">
@@ -30,6 +39,14 @@
                                     <span style="margin-left: 1rem;">📱 {{ $contact->phone }}</span>
                                 @endif
                             </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <a href="{{ route('contact.edit', ['customer' => $customer, 'contact' => $contact]) }}" class="btn btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">Edit</a>
+                            <form action="{{ route('contact.destroy', ['customer' => $customer, 'contact' => $contact]) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn" style="padding: 0.4rem 0.8rem; font-size: 0.8rem; background: rgba(239, 68, 68, 0.1); color: var(--text-danger); border: 1px solid rgba(239, 68, 68, 0.2);">Delete</button>
+                            </form>
                         </div>
                     </div>
                 @endforeach

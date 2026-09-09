@@ -45,24 +45,36 @@ class ContactController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Contact $contact)
+    public function edit(Customer $customer, Contact $contact)
     {
-        //
+        return view('contact.edit', [
+            'customer' => $customer,
+            'contact' => $contact
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Contact $contact)
+    public function update(Request $request, Customer $customer, Contact $contact)
     {
-        //
+        $data = $request->validate([
+            'lastname' => 'required',
+            'firstname' => 'required',
+            'email' => 'required|email',
+            'phone' => 'nullable',
+        ]);
+        $contact->fill($data);
+        $contact->save();
+        return redirect()->route('customer.show', ['customer' => $customer]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Contact $contact)
+    public function destroy(Customer $customer, Contact $contact)
     {
-        //
+        $contact->delete();
+        return redirect()->route('customer.show', ['customer' => $customer]);
     }
 }
