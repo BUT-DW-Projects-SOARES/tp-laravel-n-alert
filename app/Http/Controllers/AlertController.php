@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAlertRequest;
 use App\Http\Requests\UpdateAlertRequest;
 use App\Models\Alert;
+use App\Models\Category;
 
 class AlertController extends Controller
 {
@@ -22,7 +23,8 @@ class AlertController extends Controller
      */
     public function create()
     {
-        return view('alert.create');
+        $categories = Category::all();
+        return view('alert.create', ['categories' => $categories]);
     }
 
     /**
@@ -47,7 +49,8 @@ class AlertController extends Controller
      */
     public function edit(Alert $alert)
     {
-        return view('alert.edit', ['alert' => $alert]);
+        $categories = Category::all();
+        return view('alert.edit', ['alert' => $alert, 'categories' => $categories]);
     }
 
     /**

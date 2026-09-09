@@ -26,6 +26,7 @@ class StoreAlertRequest extends FormRequest
             'title' => 'required',
             'published_at' => 'required|date',
             'description' => 'nullable',
+            'category_id' => 'nullable|integer|exists:categories,id',
         ];
     }
 }

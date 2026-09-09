@@ -15,6 +15,7 @@ class Alert extends Model
         'title',
         'published_at',
         'description',
+        'category_id',
     ];
 
     protected $casts = [

@@ -28,6 +28,19 @@
                 <x-form.validation-error value="description" />
             </div>
 
+            <div class="form-group mb-8">
+                <label class="form-label">Category</label>
+                <select class="form-input" name="category_id">
+                    <option value="">-- No Category --</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}" @selected(old('category_id') == $category->id)>
+                            {{ $category->label }}
+                        </option>
+                    @endforeach
+                </select>
+                <x-form.validation-error value="category_id" />
+            </div>
+
             <button class="btn btn-primary" style="width: 100%;" type="submit">Create Alert</button>
         </form>
     </div>
