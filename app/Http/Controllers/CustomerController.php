@@ -50,4 +50,39 @@ class CustomerController extends Controller
 
         return redirect()->route('customer.index');
     }
+
+    public function edit(Customer $customer)
+    {
+        $contact = $customer->contacts->first();
+        return view('customer.edit', ['customer' => $customer, 'contact' => $contact]);
+    }
+
+    public function update(Request $request, Customer $customer)
+    {
+        $data = $request->validate([
+            'label' => 'required',
+            'nom' => 'required',
+            'prenom' => 'required',
+            'email' => 'required|email',
+            'phone' => 'nullable',
+        ]);
+
+        $customer->fill(['label' => $data['label']]);
+        $contact = $customer->contacts->first();
+        if (!$contact) {
+            $contact = new Contact();
+            $contact->customer_id = $customer->id;
+        }
+
+        $contact->fill([
+            'firstname' => $data['prenom'],
+            'lastname' => $data['nom'],
+            'email' => $data['email'],
+            'phone' => $data['phone'] ?? null,
+        ]);
+        $contact->save();
+        $customer->save();
+
+        return redirect()->route('customer.show', ['customer' => $customer]);
+    }
 }
