@@ -17,4 +17,18 @@ class CustomerController extends Controller
     {
         return view('customer.show', ['customer' => $customer]);
     }
+
+    public function create()
+    {
+        return view('customer.create');
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->all();
+        $customer = new Customer();
+        $customer->label = $data['label'];
+        $customer->save();
+        return redirect()->route('customer.index');
+    }
 }

@@ -24,6 +24,8 @@ Route::get('/alert', [AlertController::class, 'index'])->name('alert.index');
 Route::get('/alert/{alert}', [AlertController::class, 'show'])->name('alert.show');
 
 Route::get('/customer', [CustomerController::class, 'index'])->name('customer.index');
+Route::get('/customer/create', [CustomerController::class, 'create'])->name('customer.create');
+Route::post('/customer', [CustomerController::class, 'store'])->name('customer.store');
 Route::get('/customer/{customer}', [CustomerController::class, 'show'])->name('customer.show');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
