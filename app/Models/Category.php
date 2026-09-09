@@ -10,6 +10,10 @@ class Category extends Model
     /** @use HasFactory<\Database\Factories\CategoryFactory> */
     use HasFactory;
 
+    protected $fillable = [
+        'label',
+    ];
+
     public function alerts()
     {
         return $this->hasMany(Alert::class);

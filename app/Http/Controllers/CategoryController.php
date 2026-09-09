@@ -24,9 +24,11 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->all();
+        $data = $request->validate([
+            'label' => 'required',
+        ]);
         $category = new Category();
-        $category->label = $data['label'];
+        $category->fill($data);
         $category->save();
         return redirect()->route('category.index');
     }
