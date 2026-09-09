@@ -33,7 +33,7 @@ class CustomerController extends Controller
             'email' => 'required|email',
             'phone' => 'nullable',
         ]);
-        
+
         $customer = new Customer();
         $customer->fill(['label' => $data['label']]);
         $customer->save();
