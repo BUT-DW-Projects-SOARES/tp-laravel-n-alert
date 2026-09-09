@@ -13,4 +13,14 @@ class Tag extends Model
     protected $fillable = [
         'label',
     ];
+
+    public function alerts()
+    {
+        return $this->belongsToMany(Alert::class);
+    }
+
+    public function customers()
+    {
+        return $this->belongsToMany(Customer::class);
+    }
 }
