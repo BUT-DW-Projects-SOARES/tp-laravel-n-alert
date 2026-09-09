@@ -1,0 +1,35 @@
+<x-layout.base title="Edit Alert {{ $alert->title }}">
+    <div class="page-header">
+        <div>
+            <p><a href="{{ route('alert.show', ['alert' => $alert]) }}" style="color: var(--accent-blue);">&larr; Back to alert</a></p>
+            <h1 class="mt-4">Edit Alert</h1>
+        </div>
+    </div>
+
+    <div class="form-container mx-auto">
+        <form method="POST" action="{{ route('alert.update', ['alert' => $alert]) }}">
+            @csrf
+            @method('PATCH')
+            
+            <div class="form-group">
+                <label class="form-label">Alert Title</label>
+                <input class="form-input" type="text" name="title" placeholder="e.g. Server Maintenance" value="{{ old('title', $alert->title) }}">
+                <x-form.validation-error value="title" />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Published At</label>
+                <input class="form-input" type="datetime-local" name="published_at" value="{{ old('published_at', $alert->published_at?->format('Y-m-d\TH:i')) }}">
+                <x-form.validation-error value="published_at" />
+            </div>
+            
+            <div class="form-group mb-8">
+                <label class="form-label">Description</label>
+                <textarea class="form-input" name="description" placeholder="Enter alert details..." rows="4">{{ old('description', $alert->description) }}</textarea>
+                <x-form.validation-error value="description" />
+            </div>
+
+            <button class="btn btn-primary" style="width: 100%;" type="submit">Update Alert</button>
+        </form>
+    </div>
+</x-layout.base>

@@ -11,6 +11,12 @@ class Alert extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'published_at',
+        'description',
+    ];
+
     protected $casts = [
         'published_at' => 'datetime',
     ];

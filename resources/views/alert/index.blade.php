@@ -2,8 +2,11 @@
     <div class="page-header">
         <div>
             <h1>Alerts</h1>
-            <p>Monitor all system and operational alerts.</p>
+            <p>Manage all system alerts and notifications.</p>
         </div>
+        <a href="{{ route('alert.create') }}" class="btn btn-primary">
+            + New Alert
+        </a>
     </div>
 
     <div class="glass-card">
