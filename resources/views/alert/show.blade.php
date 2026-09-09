@@ -20,11 +20,22 @@
         </p>
 
         @if ($alert->category)
-            <div>
+            <div class="mb-4">
                 <span class="form-label" style="display: inline-block; margin-right: 1rem;">Category:</span>
                 <span class="badge" style="background: rgba(139, 92, 246, 0.1); color: var(--accent-purple); border-color: rgba(139, 92, 246, 0.2);">
                     {{ $alert->category->label }}
                 </span>
+            </div>
+        @endif
+
+        @if($alert->tags->count() > 0)
+            <div>
+                <span class="form-label" style="display: inline-block; margin-right: 1rem;">Tags:</span>
+                @foreach ($alert->tags as $tag)
+                    <a href="{{ route('tag.show', ['tag' => $tag]) }}" class="badge" style="background: rgba(59, 130, 246, 0.1); color: var(--accent-blue); border-color: rgba(59, 130, 246, 0.2); text-decoration: none; margin-right: 0.5rem;">
+                        #{{ $tag->label }}
+                    </a>
+                @endforeach
             </div>
         @endif
     </div>

@@ -19,6 +19,19 @@
         </div>
     </div>
 
+    @if($customer->tags->count() > 0)
+        <div class="glass-card mb-8">
+            <h2 class="mb-4">Tags</h2>
+            <div class="flex flex-wrap gap-2">
+                @foreach ($customer->tags as $tag)
+                    <a href="{{ route('tag.show', ['tag' => $tag]) }}" class="badge" style="background: rgba(59, 130, 246, 0.1); color: var(--accent-blue); border-color: rgba(59, 130, 246, 0.2); text-decoration: none;">
+                        #{{ $tag->label }}
+                    </a>
+                @endforeach
+            </div>
+        </div>
+    @endif
+
     <div class="glass-card mb-8">
         <div class="flex items-center justify-between mb-4">
             <h2>Contacts</h2>
