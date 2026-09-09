@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CustomerRequest;
 use App\Models\Contact;
 use App\Models\Customer;
 use Illuminate\Http\Request;
@@ -24,15 +25,9 @@ class CustomerController extends Controller
         return view('customer.create');
     }
 
-    public function store(Request $request)
+    public function store(CustomerRequest $request)
     {
-        $data = $request->validate([
-            'label' => 'required',
-            'nom' => 'required',
-            'prenom' => 'required',
-            'email' => 'required|email',
-            'phone' => 'nullable',
-        ]);
+        $data = $request->validated();
 
         $customer = new Customer();
         $customer->fill(['label' => $data['label']]);
@@ -57,15 +52,9 @@ class CustomerController extends Controller
         return view('customer.edit', ['customer' => $customer, 'contact' => $contact]);
     }
 
-    public function update(Request $request, Customer $customer)
+    public function update(CustomerRequest $request, Customer $customer)
     {
-        $data = $request->validate([
-            'label' => 'required',
-            'nom' => 'required',
-            'prenom' => 'required',
-            'email' => 'required|email',
-            'phone' => 'nullable',
-        ]);
+        $data = $request->validated();
 
         $customer->fill(['label' => $data['label']]);
         $contact = $customer->contacts->first();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -22,11 +23,9 @@ class CategoryController extends Controller
         return view('category.create');
     }
 
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        $data = $request->validate([
-            'label' => 'required',
-        ]);
+        $data = $request->validated();
         $category = new Category();
         $category->fill($data);
         $category->save();
@@ -38,11 +37,9 @@ class CategoryController extends Controller
         return view('category.edit', ['category' => $category]);
     }
 
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
-        $data = $request->validate([
-            'label' => 'required',
-        ]);
+        $data = $request->validated();
         $category->fill($data);
         $category->save();
         return redirect()->route('category.show', ['category' => $category]);
