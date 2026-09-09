@@ -4,6 +4,7 @@ use App\Http\Controllers\AlertController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\HomeController;
 use App\Models\Alert;
 use App\Models\Customer;
@@ -32,3 +33,5 @@ Route::resource('/customer', CustomerController::class);
 Route::prefix('/customer/{customer}')->group(function () {
     Route::resource('/contact', ContactController::class)->except(['index', 'show']);
 });
+
+Route::resource('/tag', TagController::class);

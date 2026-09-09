@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             AlertSeeder::class,
             CustomerSeeder::class,
             ContactSeeder::class,
+            TagSeeder::class,
         ]);
     }
 }
