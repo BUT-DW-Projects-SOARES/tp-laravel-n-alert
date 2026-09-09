@@ -16,4 +16,18 @@ class CategoryController extends Controller
     {
         return view('category.show', ['category' => $category]);
     }
+
+    public function create()
+    {
+        return view('category.create');
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->all();
+        $category = new Category();
+        $category->label = $data['label'];
+        $category->save();
+        return redirect()->route('category.index');
+    }
 }
