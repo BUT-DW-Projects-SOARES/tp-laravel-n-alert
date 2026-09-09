@@ -10,6 +10,10 @@ class Customer extends Model
     /** @use HasFactory<\Database\Factories\CustomerFactory> */
     use HasFactory;
 
+    protected $fillable = [
+        'label',
+    ];
+
     public function contacts()
     {
         return $this->hasMany(Contact::class);
