@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AlertController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
 use App\Models\Alert;
@@ -36,3 +37,8 @@ Route::get('/category', [CategoryController::class, 'index'])->name('category.in
 Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');
 Route::post('/category', [CategoryController::class, 'store'])->name('category.store');
 Route::get('/category/{category}', [CategoryController::class, 'show'])->name('category.show');
+Route::get('/category/{category}/edit', [CategoryController::class, 'edit'])->name('category.edit');
+Route::patch('/category/{category}', [CategoryController::class, 'update'])->name('category.update');
+
+Route::get('/customer/{customer}/contact/create', [ContactController::class, 'create'])->name('contact.create');
+Route::post('/customer/{customer}/contact', [ContactController::class, 'store'])->name('contact.store');

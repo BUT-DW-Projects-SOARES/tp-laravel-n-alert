@@ -8,4 +8,5 @@
         <li>{{ $contact->firstname }} {{ $contact->lastname }} ({{ $contact->email }}) {{ $contact->phone }}</li>
         @endforeach
     </ul>
+    <p><a href="{{ route('contact.create', ['customer' => $customer]) }}">+ new contact</a></p>
 </x-layout.base>
