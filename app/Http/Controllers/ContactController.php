@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContactRequest;
 use App\Models\Contact;
 use App\Models\Customer;
 use Illuminate\Http\Request;
@@ -19,14 +20,9 @@ class ContactController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Customer $customer)
+    public function store(ContactRequest $request, Customer $customer)
     {
-        $data = $request->validate([
-            'lastname' => 'required',
-            'firstname' => 'required',
-            'email' => 'required|email',
-            'phone' => 'nullable',
-        ]);
+        $data = $request->validated();
         $contact = new Contact();
         $contact->fill($data);
         $contact->customer()->associate($customer);
@@ -56,14 +52,9 @@ class ContactController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Customer $customer, Contact $contact)
+    public function update(ContactRequest $request, Customer $customer, Contact $contact)
     {
-        $data = $request->validate([
-            'lastname' => 'required',
-            'firstname' => 'required',
-            'email' => 'required|email',
-            'phone' => 'nullable',
-        ]);
+        $data = $request->validated();
         $contact->fill($data);
         $contact->save();
         return redirect()->route('customer.show', ['customer' => $customer]);

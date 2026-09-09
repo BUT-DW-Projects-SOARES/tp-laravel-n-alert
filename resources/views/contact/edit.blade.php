@@ -16,34 +16,26 @@
                 <div class="form-group" style="flex: 1;">
                     <label class="form-label">First Name</label>
                     <input class="form-input" type="text" name="firstname" placeholder="Jane" value="{{ old('firstname', $contact->firstname) }}">
-                    @error('firstname')
-                        <span class="error-text">{{ $message }}</span>
-                    @enderror
+                    <x-form.validation-error value="firstname" />
                 </div>
                 
                 <div class="form-group" style="flex: 1;">
                     <label class="form-label">Last Name</label>
                     <input class="form-input" type="text" name="lastname" placeholder="Smith" value="{{ old('lastname', $contact->lastname) }}">
-                    @error('lastname')
-                        <span class="error-text">{{ $message }}</span>
-                    @enderror
+                    <x-form.validation-error value="lastname" />
                 </div>
             </div>
             
             <div class="form-group">
                 <label class="form-label">Email Address</label>
                 <input class="form-input" type="text" name="email" placeholder="jane.smith@acme.com" value="{{ old('email', $contact->email) }}">
-                @error('email')
-                    <span class="error-text">{{ $message }}</span>
-                @enderror
+                <x-form.validation-error value="email" />
             </div>
             
             <div class="form-group mb-8">
                 <label class="form-label">Phone (Optional)</label>
                 <input class="form-input" type="text" name="phone" placeholder="+1 555-0200" value="{{ old('phone', $contact->phone) }}">
-                @error('phone')
-                    <span class="error-text">{{ $message }}</span>
-                @enderror
+                <x-form.validation-error value="phone" />
             </div>
 
             <button class="btn btn-primary" style="width: 100%;" type="submit">Update Contact</button>

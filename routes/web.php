@@ -30,9 +30,5 @@ Route::resource('/category', CategoryController::class);
 Route::resource('/customer', CustomerController::class);
 
 Route::prefix('/customer/{customer}')->group(function () {
-    Route::get('/contact/create', [ContactController::class, 'create'])->name('contact.create');
-    Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
-    Route::get('/contact/{contact}/edit', [ContactController::class, 'edit'])->name('contact.edit');
-    Route::patch('/contact/{contact}', [ContactController::class, 'update'])->name('contact.update');
-    Route::delete('/contact/{contact}/destroy', [ContactController::class, 'destroy'])->name('contact.destroy');
+    Route::resource('/contact', ContactController::class)->except(['index', 'show']);
 });

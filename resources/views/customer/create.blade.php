@@ -14,9 +14,7 @@
             <div class="form-group">
                 <label class="form-label">Company Name</label>
                 <input class="form-input" type="text" name="label" placeholder="e.g. Acme Corp" value="{{ old('label') }}">
-                @error('label')
-                    <span class="error-text">{{ $message }}</span>
-                @enderror
+                <x-form.validation-error value="label" />
             </div>
 
             <hr style="border-top: 1px solid var(--border-color); margin: 2rem 0;">
@@ -26,34 +24,26 @@
                 <div class="form-group" style="flex: 1;">
                     <label class="form-label">First Name</label>
                     <input class="form-input" type="text" name="prenom" placeholder="John" value="{{ old('prenom') }}">
-                    @error('prenom')
-                        <span class="error-text">{{ $message }}</span>
-                    @enderror
+                    <x-form.validation-error value="prenom" />
                 </div>
                 
                 <div class="form-group" style="flex: 1;">
                     <label class="form-label">Last Name</label>
                     <input class="form-input" type="text" name="nom" placeholder="Doe" value="{{ old('nom') }}">
-                    @error('nom')
-                        <span class="error-text">{{ $message }}</span>
-                    @enderror
+                    <x-form.validation-error value="nom" />
                 </div>
             </div>
             
             <div class="form-group">
                 <label class="form-label">Email Address</label>
                 <input class="form-input" type="text" name="email" placeholder="john.doe@acme.com" value="{{ old('email') }}">
-                @error('email')
-                    <span class="error-text">{{ $message }}</span>
-                @enderror
+                <x-form.validation-error value="email" />
             </div>
             
             <div class="form-group mb-8">
                 <label class="form-label">Phone (Optional)</label>
                 <input class="form-input" type="text" name="phone" placeholder="+1 555-0198" value="{{ old('phone') }}">
-                @error('phone')
-                    <span class="error-text">{{ $message }}</span>
-                @enderror
+                <x-form.validation-error value="phone" />
             </div>
 
             <button class="btn btn-primary" style="width: 100%;" type="submit">Create Customer</button>

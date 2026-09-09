@@ -13,9 +13,7 @@
             <div class="form-group mb-8">
                 <label class="form-label">Category Label</label>
                 <input class="form-input" type="text" name="label" placeholder="e.g. Critical Error" value="{{ old('label') }}">
-                @error('label')
-                    <span class="error-text">{{ $message }}</span>
-                @enderror
+                <x-form.validation-error value="label" />
             </div>
 
             <button class="btn btn-primary" style="width: 100%;" type="submit">Create Category</button>
