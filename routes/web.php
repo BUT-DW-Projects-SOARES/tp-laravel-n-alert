@@ -24,26 +24,15 @@ Route::get('/hello/{name?}', function ($name = 'Guest') {
 Route::get('/alert', [AlertController::class, 'index'])->name('alert.index');
 Route::get('/alert/{alert}', [AlertController::class, 'show'])->name('alert.show');
 
-Route::get('/customer', [CustomerController::class, 'index'])->name('customer.index');
-Route::get('/customer/create', [CustomerController::class, 'create'])->name('customer.create');
-Route::post('/customer', [CustomerController::class, 'store'])->name('customer.store');
-Route::get('/customer/{customer}', [CustomerController::class, 'show'])->name('customer.show');
-Route::get('/customer/{customer}/edit', [CustomerController::class, 'edit'])->name('customer.edit');
-Route::put('/customer/{customer}', [CustomerController::class, 'update'])->name('customer.update');
-Route::delete('/customer/{customer}', [CustomerController::class, 'destroy'])->name('customer.destroy');
-
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 
-Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
-Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');
-Route::post('/category', [CategoryController::class, 'store'])->name('category.store');
-Route::get('/category/{category}', [CategoryController::class, 'show'])->name('category.show');
-Route::get('/category/{category}/edit', [CategoryController::class, 'edit'])->name('category.edit');
-Route::patch('/category/{category}', [CategoryController::class, 'update'])->name('category.update');
-Route::delete('/category/{category}', [CategoryController::class, 'destroy'])->name('category.destroy');
+Route::resource('/category', CategoryController::class);
+Route::resource('/customer', CustomerController::class);
 
-Route::get('/customer/{customer}/contact/create', [ContactController::class, 'create'])->name('contact.create');
-Route::post('/customer/{customer}/contact', [ContactController::class, 'store'])->name('contact.store');
-Route::get('/customer/{customer}/contact/{contact}/edit', [ContactController::class, 'edit'])->name('contact.edit');
-Route::patch('/customer/{customer}/contact/{contact}', [ContactController::class, 'update'])->name('contact.update');
-Route::delete('/customer/{customer}/contact/{contact}/destroy', [ContactController::class, 'destroy'])->name('contact.destroy');
+Route::prefix('/customer/{customer}')->group(function () {
+    Route::get('/contact/create', [ContactController::class, 'create'])->name('contact.create');
+    Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+    Route::get('/contact/{contact}/edit', [ContactController::class, 'edit'])->name('contact.edit');
+    Route::patch('/contact/{contact}', [ContactController::class, 'update'])->name('contact.update');
+    Route::delete('/contact/{contact}/destroy', [ContactController::class, 'destroy'])->name('contact.destroy');
+});
