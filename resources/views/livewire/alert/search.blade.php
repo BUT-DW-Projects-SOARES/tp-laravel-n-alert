@@ -10,6 +10,17 @@
         <form wire:submit="$refresh" class="flex flex-col gap-4">
             <div class="form-group">
                 <input class="form-input" type="text" placeholder="Search keywords..." wire:model="keywords">
+                <x-form.validation-error value="keywords" />
+            </div>
+
+            <div class="form-group">
+                <select class="form-input" wire:model="selected_category">
+                    <option value="">-- All Categories --</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->label }}</option>
+                    @endforeach
+                </select>
+                <x-form.validation-error value="selected_category" />
             </div>
             
             @if(count($tags) > 0)
@@ -23,6 +34,7 @@
                             </label>
                         @endforeach
                     </div>
+                    <x-form.validation-error value="selected_tags" />
                 </div>
             @endif
 
