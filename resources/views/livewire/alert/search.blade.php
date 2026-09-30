@@ -41,8 +41,8 @@
             @endif
 
             <div class="flex gap-2" style="justify-content: flex-end;">
-                <button type="button" wire:click="resetForm" class="btn btn-secondary" style="padding: 0.4rem 1rem; font-size: 0.85rem;">Reset Filters</button>
-                <button type="submit" class="btn btn-primary" style="padding: 0.4rem 1rem; font-size: 0.85rem;">Search</button>
+                <button type="button" wire:click="resetForm" class="btn btn-secondary">Reset Filters</button>
+                <button type="submit" class="btn btn-primary">Search</button>
             </div>
         </form>
     </div>
