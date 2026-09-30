@@ -28,7 +28,8 @@ Route::resource('/alert', AlertController::class)
 
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 
-Route::resource('/category', CategoryController::class);
+Route::resource('/category', CategoryController::class)
+    ->middleware(['auth', 'can:admin-access']);
 Route::resource('/customer', CustomerController::class)
     ->middleware('auth')
     ->withoutMiddlewareFor(['index', 'show'], 'auth');
