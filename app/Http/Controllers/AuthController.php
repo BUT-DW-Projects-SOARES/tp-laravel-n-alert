@@ -21,7 +21,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($data)) {
             $request->session()->regenerate();
-            return redirect()->route('alert.index');
+            return redirect()->intended();
         }
 
         return redirect()->back()

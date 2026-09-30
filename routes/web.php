@@ -23,12 +23,15 @@ Route::get('/hello/{name?}', function ($name = 'Guest') {
     return $name;
 });
 
-Route::resource('/alert', AlertController::class);
+Route::resource('/alert', AlertController::class)
+    ->middlewareFor(['create', 'store', 'edit', 'update', 'destroy'], 'auth');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 
 Route::resource('/category', CategoryController::class);
-Route::resource('/customer', CustomerController::class);
+Route::resource('/customer', CustomerController::class)
+    ->middleware('auth')
+    ->withoutMiddlewareFor(['index', 'show'], 'auth');
 
 Route::prefix('/customer/{customer}')->group(function () {
     Route::resource('/contact', ContactController::class)->except(['index', 'show']);
@@ -36,6 +39,8 @@ Route::prefix('/customer/{customer}')->group(function () {
 
 Route::resource('/tag', TagController::class);
 
-Route::get('/login', [AuthController::class, 'form'])->name('auth.form');
-Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
-Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'form'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
+});
+Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout')->middleware('auth');
