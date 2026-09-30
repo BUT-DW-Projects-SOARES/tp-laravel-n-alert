@@ -27,6 +27,8 @@ class UpdateAlertRequest extends FormRequest
             'published_at' => 'required|date',
             'description' => 'nullable',
             'category_id' => 'nullable|integer|exists:categories,id',
+            'tags' => 'nullable|array',
+            'tags.*' => 'integer|exists:tags,id',
         ];
     }
 }

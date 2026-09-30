@@ -6,6 +6,7 @@ use App\Http\Requests\StoreAlertRequest;
 use App\Http\Requests\UpdateAlertRequest;
 use App\Models\Alert;
 use App\Models\Category;
+use App\Models\Tag;
 
 class AlertController extends Controller
 {
@@ -24,7 +25,8 @@ class AlertController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('alert.create', ['categories' => $categories]);
+        $tags = Tag::all();
+        return view('alert.create', ['categories' => $categories, 'tags' => $tags]);
     }
 
     /**
@@ -32,7 +34,11 @@ class AlertController extends Controller
      */
     public function store(StoreAlertRequest $request)
     {
-        $alert = Alert::create($request->validated());
+        $data = $request->validated();
+        $alert = Alert::create($data);
+        if (isset($data['tags'])) {
+            $alert->tags()->attach($data['tags']);
+        }
         return redirect()->route('alert.show', ['alert' => $alert]);
     }
 
@@ -50,7 +56,8 @@ class AlertController extends Controller
     public function edit(Alert $alert)
     {
         $categories = Category::all();
-        return view('alert.edit', ['alert' => $alert, 'categories' => $categories]);
+        $tags = Tag::all();
+        return view('alert.edit', ['alert' => $alert, 'categories' => $categories, 'tags' => $tags]);
     }
 
     /**
@@ -58,7 +65,13 @@ class AlertController extends Controller
      */
     public function update(UpdateAlertRequest $request, Alert $alert)
     {
-        $alert->update($request->validated());
+        $data = $request->validated();
+        $alert->update($data);
+        if (isset($data['tags'])) {
+            $alert->tags()->sync($data['tags']);
+        } else {
+            $alert->tags()->sync([]);
+        }
         return redirect()->route('alert.show', ['alert' => $alert]);
     }
 
