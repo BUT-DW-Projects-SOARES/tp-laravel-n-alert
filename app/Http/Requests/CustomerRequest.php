@@ -27,6 +27,8 @@ class CustomerRequest extends FormRequest
             'prenom' => 'required',
             'email' => 'required|email',
             'phone' => 'nullable',
+            'tags' => 'nullable|array',
+            'tags.*' => 'integer|exists:tags,id',
         ];
     }
 }

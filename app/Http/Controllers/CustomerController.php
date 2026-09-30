@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CustomerRequest;
 use App\Models\Contact;
 use App\Models\Customer;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -22,7 +23,8 @@ class CustomerController extends Controller
 
     public function create()
     {
-        return view('customer.create');
+        $tags = Tag::all();
+        return view('customer.create', ['tags' => $tags]);
     }
 
     public function store(CustomerRequest $request)
@@ -43,13 +45,18 @@ class CustomerController extends Controller
         ]);
         $contact->save();
 
+        if (isset($data['tags'])) {
+            $customer->tags()->attach($data['tags']);
+        }
+
         return redirect()->route('customer.index');
     }
 
     public function edit(Customer $customer)
     {
         $contact = $customer->contacts->first();
-        return view('customer.edit', ['customer' => $customer, 'contact' => $contact]);
+        $tags = Tag::all();
+        return view('customer.edit', ['customer' => $customer, 'contact' => $contact, 'tags' => $tags]);
     }
 
     public function update(CustomerRequest $request, Customer $customer)
@@ -71,6 +78,12 @@ class CustomerController extends Controller
         ]);
         $contact->save();
         $customer->save();
+
+        if (isset($data['tags'])) {
+            $customer->tags()->sync($data['tags']);
+        } else {
+            $customer->tags()->sync([]);
+        }
 
         return redirect()->route('customer.show', ['customer' => $customer]);
     }
