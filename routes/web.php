@@ -7,23 +7,13 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\HomeController;
+use App\Livewire\Alert\Search;
 use App\Models\Alert;
 use App\Models\Customer;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/test', function () {
-    return view('test');
-});
-
-Route::get('/hello/{name?}', function ($name = 'Guest') {
-    return $name;
-});
-
-Route::get('/home', [HomeController::class, 'index'])->name('home.index');
+Route::get('/', fn() => redirect()->route('dashboard'));
+Route::livewire('/dashboard', Search::class)->name('dashboard');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('/alert', AlertController::class)

@@ -13,10 +13,10 @@
     <div class="app-container">
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
-            <a href="{{ route('home.index') }}" class="brand">N-Altert</a>
+            <a href="{{ route('dashboard') }}" class="brand">N-Altert</a>
             
             <nav class="nav-links">
-                <a href="{{ route('home.index') }}" class="nav-item {{ request()->routeIs('home.index') ? 'active' : '' }}">
+                <a href="{{ route('dashboard') }}" class="nav-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                     <svg style="width: 20px; height: 20px; display: inline-block; margin-right: 10px; vertical-align: text-bottom;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
                     Dashboard
                 </a>
