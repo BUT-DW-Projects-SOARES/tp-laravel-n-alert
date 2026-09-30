@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateAlertRequest;
 use App\Models\Alert;
 use App\Models\Category;
 use App\Models\Tag;
+use Illuminate\Support\Facades\Gate;
 
 class AlertController extends Controller
 {
@@ -15,6 +16,7 @@ class AlertController extends Controller
      */
     public function index()
     {
+        Gate::authorize('viewAny', Alert::class);
         $alerts = Alert::with('category')->get();
         return view('alert.index', ['alerts' => $alerts]);
     }
@@ -24,6 +26,7 @@ class AlertController extends Controller
      */
     public function create()
     {
+        Gate::authorize('create', Alert::class);
         $categories = Category::all();
         $tags = Tag::all();
         return view('alert.create', ['categories' => $categories, 'tags' => $tags]);
@@ -34,6 +37,7 @@ class AlertController extends Controller
      */
     public function store(StoreAlertRequest $request)
     {
+        Gate::authorize('create', Alert::class);
         $data = $request->validated();
         $alert = Alert::create($data);
         if (isset($data['tags'])) {
@@ -47,6 +51,7 @@ class AlertController extends Controller
      */
     public function show(Alert $alert)
     {
+        Gate::authorize('view', $alert);
         return view('alert.show', ['alert' => $alert]);
     }
 
@@ -55,6 +60,7 @@ class AlertController extends Controller
      */
     public function edit(Alert $alert)
     {
+        Gate::authorize('update', $alert);
         $categories = Category::all();
         $tags = Tag::all();
         return view('alert.edit', ['alert' => $alert, 'categories' => $categories, 'tags' => $tags]);
@@ -65,6 +71,7 @@ class AlertController extends Controller
      */
     public function update(UpdateAlertRequest $request, Alert $alert)
     {
+        Gate::authorize('update', $alert);
         $data = $request->validated();
         $alert->update($data);
         if (isset($data['tags'])) {
@@ -80,6 +87,7 @@ class AlertController extends Controller
      */
     public function destroy(Alert $alert)
     {
+        Gate::authorize('delete', $alert);
         $alert->delete();
         return redirect()->route('alert.index');
     }

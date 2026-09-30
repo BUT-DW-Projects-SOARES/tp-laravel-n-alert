@@ -6,16 +6,20 @@
             <p class="text-muted">Alert ID: #{{ $alert->id }}</p>
         </div>
         <div class="flex gap-2">
-            <a href="{{ route('alert.edit', ['alert' => $alert]) }}" class="btn btn-secondary">
-                Edit Alert
-            </a>
-            <form action="{{ route('alert.destroy', ['alert' => $alert]) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this alert?');">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-secondary" style="background: rgba(239, 68, 68, 0.1); color: var(--text-danger); border-color: rgba(239, 68, 68, 0.2);">
-                    Delete Alert
-                </button>
-            </form>
+            @can('update', $alert)
+                <a href="{{ route('alert.edit', ['alert' => $alert]) }}" class="btn btn-secondary">
+                    Edit Alert
+                </a>
+            @endcan
+            @can('delete', $alert)
+                <form action="{{ route('alert.destroy', ['alert' => $alert]) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this alert?');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-secondary" style="background: rgba(239, 68, 68, 0.1); color: var(--text-danger); border-color: rgba(239, 68, 68, 0.2);">
+                        Delete Alert
+                    </button>
+                </form>
+            @endcan
         </div>
     </div>
 

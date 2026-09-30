@@ -4,9 +4,11 @@
             <h1>Alerts</h1>
             <p>Manage all system alerts and notifications.</p>
         </div>
-        <a href="{{ route('alert.create') }}" class="btn btn-primary">
-            + New Alert
-        </a>
+        @can('create', App\Models\Alert::class)
+            <a href="{{ route('alert.create') }}" class="btn btn-primary">
+                + New Alert
+            </a>
+        @endcan
     </div>
 
     <div class="glass-card">

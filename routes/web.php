@@ -23,22 +23,22 @@ Route::get('/hello/{name?}', function ($name = 'Guest') {
     return $name;
 });
 
-Route::resource('/alert', AlertController::class)
-    ->middlewareFor(['create', 'store', 'edit', 'update', 'destroy'], 'auth');
-
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 
-Route::resource('/category', CategoryController::class)
-    ->middleware(['auth', 'can:admin-access']);
-Route::resource('/customer', CustomerController::class)
-    ->middleware('auth')
-    ->withoutMiddlewareFor(['index', 'show'], 'auth');
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('/alert', AlertController::class)
+        ->withoutMiddlewareFor(['index', 'show'], 'auth');
 
-Route::prefix('/customer/{customer}')->group(function () {
-    Route::resource('/contact', ContactController::class)->except(['index', 'show']);
+    Route::resource('/category', CategoryController::class);
+
+    Route::resource('/customer', CustomerController::class);
+
+    Route::prefix('/customer/{customer}')->group(function () {
+        Route::resource('/contact', ContactController::class)->except(['index', 'show']);
+    });
+
+    Route::resource('/tag', TagController::class);
 });
-
-Route::resource('/tag', TagController::class);
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'form'])->name('login');

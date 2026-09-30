@@ -4,9 +4,11 @@
             <h1>Customers</h1>
             <p>Manage your company's clients and their contacts.</p>
         </div>
-        <a href="{{ route('customer.create') }}" class="btn btn-primary">
-            + New Customer
-        </a>
+        @can('create', App\Models\Customer::class)
+            <a href="{{ route('customer.create') }}" class="btn btn-primary">
+                + New Customer
+            </a>
+        @endcan
     </div>
 
     <div class="grid-container">

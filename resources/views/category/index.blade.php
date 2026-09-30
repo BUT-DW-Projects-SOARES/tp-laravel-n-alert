@@ -4,9 +4,11 @@
             <h1>Categories</h1>
             <p>Manage alert categories.</p>
         </div>
-        <a href="{{ route('category.create') }}" class="btn btn-primary">
-            + New Category
-        </a>
+        @can('create', App\Models\Category::class)
+            <a href="{{ route('category.create') }}" class="btn btn-primary">
+                + New Category
+            </a>
+        @endcan
     </div>
 
     <div class="glass-card">

@@ -6,6 +6,7 @@ use App\Http\Requests\ContactRequest;
 use App\Models\Contact;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ContactController extends Controller
 {
@@ -14,6 +15,7 @@ class ContactController extends Controller
      */
     public function create(Customer $customer)
     {
+        Gate::authorize('create', Contact::class);
         return view('contact.create', ['customer' => $customer]);
     }
 
@@ -22,6 +24,7 @@ class ContactController extends Controller
      */
     public function store(ContactRequest $request, Customer $customer)
     {
+        Gate::authorize('create', Contact::class);
         $data = $request->validated();
         $contact = new Contact();
         $contact->fill($data);
@@ -43,6 +46,7 @@ class ContactController extends Controller
      */
     public function edit(Customer $customer, Contact $contact)
     {
+        Gate::authorize('update', $contact);
         return view('contact.edit', [
             'customer' => $customer,
             'contact' => $contact
@@ -54,6 +58,7 @@ class ContactController extends Controller
      */
     public function update(ContactRequest $request, Customer $customer, Contact $contact)
     {
+        Gate::authorize('update', $contact);
         $data = $request->validated();
         $contact->fill($data);
         $contact->save();
@@ -65,6 +70,7 @@ class ContactController extends Controller
      */
     public function destroy(Customer $customer, Contact $contact)
     {
+        Gate::authorize('delete', $contact);
         $contact->delete();
         return redirect()->route('customer.show', ['customer' => $customer]);
     }

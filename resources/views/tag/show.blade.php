@@ -5,16 +5,20 @@
             <h1 class="mt-4">{{ $tag->label }}</h1>
         </div>
         <div class="flex gap-2">
-            <a href="{{ route('tag.edit', ['tag' => $tag]) }}" class="btn btn-secondary">
-                Edit Tag
-            </a>
-            <form action="{{ route('tag.destroy', ['tag' => $tag]) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this tag?');">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-secondary" style="background: rgba(239, 68, 68, 0.1); color: var(--text-danger); border-color: rgba(239, 68, 68, 0.2);">
-                    Delete Tag
-                </button>
-            </form>
+            @can('update', $tag)
+                <a href="{{ route('tag.edit', ['tag' => $tag]) }}" class="btn btn-secondary">
+                    Edit Tag
+                </a>
+            @endcan
+            @can('delete', $tag)
+                <form action="{{ route('tag.destroy', ['tag' => $tag]) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this tag?');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-secondary" style="background: rgba(239, 68, 68, 0.1); color: var(--text-danger); border-color: rgba(239, 68, 68, 0.2);">
+                        Delete Tag
+                    </button>
+                </form>
+            @endcan
         </div>
     </div>
 
