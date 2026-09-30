@@ -41,6 +41,28 @@
                     Alerts
                 </a>
             </nav>
+            
+            <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+                @auth
+                    <div style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 0.5rem; padding: 0 1rem;">
+                        Logged in as <strong>{{ auth()->user()->name }}</strong>
+                    </div>
+                    <form action="{{ route('auth.logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="nav-item" style="width: 100%; text-align: left; background: none; border: none; cursor: pointer; color: var(--text-danger);">
+                            <svg style="width: 20px; height: 20px; display: inline-block; margin-right: 10px; vertical-align: text-bottom;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                            Logout
+                        </button>
+                    </form>
+                @endauth
+                
+                @guest
+                    <a href="{{ route('auth.form') }}" class="nav-item {{ request()->routeIs('auth.form') ? 'active' : '' }}">
+                        <svg style="width: 20px; height: 20px; display: inline-block; margin-right: 10px; vertical-align: text-bottom;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path></svg>
+                        Login
+                    </a>
+                @endguest
+            </div>
         </aside>
 
         <!-- Main Content Area -->
