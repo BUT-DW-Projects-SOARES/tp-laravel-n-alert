@@ -44,10 +44,10 @@
 
             <div class="form-group mb-8">
                 <label class="form-label">Tags</label>
-                <div class="flex flex-wrap gap-4" style="padding: 1rem; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 0.5rem;">
+                <div class="checkbox-group">
                     @foreach ($tags as $tag)
-                        <label style="display: flex; align-items: center; cursor: pointer; color: var(--text-color);">
-                            <input @checked(in_array($tag->id, old('tags', $alert->tags->pluck('id')->all()))) type="checkbox" name="tags[]" value="{{ $tag->id }}" style="margin-right: 0.5rem; accent-color: var(--accent-purple);">
+                        <label class="checkbox-label">
+                            <input @checked(in_array($tag->id, old('tags', $alert->tags->pluck('id')->all()))) type="checkbox" name="tags[]" value="{{ $tag->id }}" class="checkbox-input">
                             {{ $tag->label }}
                         </label>
                     @endforeach

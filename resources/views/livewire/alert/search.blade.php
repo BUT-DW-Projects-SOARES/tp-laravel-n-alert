@@ -28,10 +28,10 @@
             @if(count($tags) > 0)
                 <div class="form-group" style="margin-bottom: 1rem;">
                     <label class="form-label mb-2" style="font-size: 0.85rem;">Filter by Tags:</label>
-                    <div class="flex flex-wrap gap-3" style="padding: 0.75rem; background: rgba(0,0,0,0.1); border: 1px solid var(--border-color); border-radius: 0.5rem; font-size: 0.85rem;">
+                    <div class="checkbox-group">
                         @foreach ($tags as $tag)
-                            <label style="display: flex; align-items: center; cursor: pointer; color: var(--text-color);">
-                                <input type="checkbox" value="{{ $tag->id }}" wire:model="selected_tags" style="margin-right: 0.4rem; accent-color: var(--accent-purple);">
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="{{ $tag->id }}" wire:model="selected_tags" class="checkbox-input">
                                 {{ $tag->label }}
                             </label>
                         @endforeach

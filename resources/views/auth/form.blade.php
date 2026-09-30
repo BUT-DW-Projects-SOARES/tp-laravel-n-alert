@@ -23,8 +23,8 @@
             </div>
 
             <div class="form-group mb-8">
-                <label style="display: flex; align-items: center; cursor: pointer; color: var(--text-color);">
-                    <input type="checkbox" name="remember" value="1" style="margin-right: 0.5rem; accent-color: var(--accent-purple);">
+                <label class="checkbox-label" style="font-weight: 500;">
+                    <input type="checkbox" name="remember" value="1" class="checkbox-input">
                     Remember me
                 </label>
             </div>
