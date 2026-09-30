@@ -6,30 +6,32 @@
         </div>
     </div>
 
-    <div class="glass-card mb-8">
-        <form wire:submit="$refresh" class="flex flex-col gap-4">
-            <div class="form-group">
-                <input class="form-input" type="text" placeholder="Search keywords..." wire:model="keywords">
-                <x-form.validation-error value="keywords" />
-            </div>
+    <div class="glass-card mb-8" style="padding: 1.5rem;">
+        <form wire:submit="$refresh">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                <div class="form-group" style="margin: 0;">
+                    <input class="form-input" type="text" placeholder="Search keywords..." wire:model="keywords">
+                    <x-form.validation-error value="keywords" />
+                </div>
 
-            <div class="form-group">
-                <select class="form-input" wire:model="selected_category">
-                    <option value="">-- All Categories --</option>
-                    @foreach ($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->label }}</option>
-                    @endforeach
-                </select>
-                <x-form.validation-error value="selected_category" />
+                <div class="form-group" style="margin: 0;">
+                    <select class="form-input" wire:model="selected_category">
+                        <option value="">-- All Categories --</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->label }}</option>
+                        @endforeach
+                    </select>
+                    <x-form.validation-error value="selected_category" />
+                </div>
             </div>
             
             @if(count($tags) > 0)
-                <div class="form-group">
-                    <label class="form-label mb-2">Filter by Tags:</label>
-                    <div class="flex flex-wrap gap-4" style="padding: 1rem; background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 0.5rem;">
+                <div class="form-group" style="margin-bottom: 1rem;">
+                    <label class="form-label mb-2" style="font-size: 0.85rem;">Filter by Tags:</label>
+                    <div class="flex flex-wrap gap-3" style="padding: 0.75rem; background: rgba(0,0,0,0.1); border: 1px solid var(--border-color); border-radius: 0.5rem; font-size: 0.85rem;">
                         @foreach ($tags as $tag)
                             <label style="display: flex; align-items: center; cursor: pointer; color: var(--text-color);">
-                                <input type="checkbox" value="{{ $tag->id }}" wire:model="selected_tags" style="margin-right: 0.5rem; accent-color: var(--accent-purple);">
+                                <input type="checkbox" value="{{ $tag->id }}" wire:model="selected_tags" style="margin-right: 0.4rem; accent-color: var(--accent-purple);">
                                 {{ $tag->label }}
                             </label>
                         @endforeach
@@ -38,9 +40,9 @@
                 </div>
             @endif
 
-            <div class="flex gap-2 mt-4">
-                <button type="submit" class="btn btn-primary">Search</button>
-                <button type="button" wire:click="resetForm" class="btn btn-secondary">Reset Filters</button>
+            <div class="flex gap-2" style="justify-content: flex-end;">
+                <button type="button" wire:click="resetForm" class="btn btn-secondary" style="padding: 0.4rem 1rem; font-size: 0.85rem;">Reset Filters</button>
+                <button type="submit" class="btn btn-primary" style="padding: 0.4rem 1rem; font-size: 0.85rem;">Search</button>
             </div>
         </form>
     </div>
