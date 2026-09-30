@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AlertController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CustomerController;
@@ -34,3 +35,7 @@ Route::prefix('/customer/{customer}')->group(function () {
 });
 
 Route::resource('/tag', TagController::class);
+
+Route::get('/login', [AuthController::class, 'form'])->name('auth.form');
+Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
+Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
