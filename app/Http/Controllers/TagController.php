@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTagRequest;
 use App\Http\Requests\UpdateTagRequest;
 use App\Models\Tag;
+use Illuminate\Support\Facades\Gate;
 
 class TagController extends Controller
 {
@@ -13,6 +14,7 @@ class TagController extends Controller
      */
     public function index()
     {
+        Gate::authorize('viewAny', Tag::class);
         return view('tag.index', ['tags' => Tag::all()]);
     }
 
@@ -21,6 +23,7 @@ class TagController extends Controller
      */
     public function create()
     {
+        Gate::authorize('create', Tag::class);
         return view('tag.create');
     }
 
@@ -29,6 +32,7 @@ class TagController extends Controller
      */
     public function store(StoreTagRequest $request)
     {
+        Gate::authorize('create', Tag::class);
         $data = $request->validated();
         $tag = Tag::create($data);
         return redirect()->route('tag.show', ['tag' => $tag]);
@@ -39,6 +43,7 @@ class TagController extends Controller
      */
     public function show(Tag $tag)
     {
+        Gate::authorize('view', $tag);
         return view('tag.show', ['tag' => $tag]);
     }
 

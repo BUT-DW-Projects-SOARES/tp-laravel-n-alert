@@ -2,16 +2,16 @@
 
 namespace App\Policies;
 
-use App\Models\Tag;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class TagPolicy
+class CategoryPolicy
 {
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(?User $user): bool
+    public function viewAny(User $user): bool
     {
         return true;
     }
@@ -19,9 +19,9 @@ class TagPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(?User $user, Tag $tag): bool
+    public function view(User $user, Category $category): bool
     {
-        return true;
+        return $category->id === 1;
     }
 
     /**
@@ -29,13 +29,13 @@ class TagPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return false;
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Tag $tag): bool
+    public function update(User $user, Category $category): bool
     {
         return false;
     }
@@ -43,7 +43,7 @@ class TagPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Tag $tag): bool
+    public function delete(User $user, Category $category): bool
     {
         return false;
     }
@@ -51,7 +51,7 @@ class TagPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Tag $tag): bool
+    public function restore(User $user, Category $category): bool
     {
         return false;
     }
@@ -59,7 +59,7 @@ class TagPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Tag $tag): bool
+    public function forceDelete(User $user, Category $category): bool
     {
         return false;
     }

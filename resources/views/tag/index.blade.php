@@ -4,9 +4,11 @@
             <h1>Tags</h1>
             <p>Manage all available tags.</p>
         </div>
-        <a href="{{ route('tag.create') }}" class="btn btn-primary">
-            + New Tag
-        </a>
+        @can('create', App\Models\Tag::class)
+            <a href="{{ route('tag.create') }}" class="btn btn-primary">
+                + New Tag
+            </a>
+        @endcan
     </div>
 
     <div class="glass-card">

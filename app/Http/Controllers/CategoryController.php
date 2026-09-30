@@ -5,16 +5,19 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class CategoryController extends Controller
 {
     public function index()
     {
+        Gate::authorize('viewAny', Category::class);
         return view('category.index', ['categories' => Category::all()]);
     }
 
     public function show(Category $category)
     {
+        Gate::authorize('view', $category);
         return view('category.show', ['category' => $category]);
     }
 
