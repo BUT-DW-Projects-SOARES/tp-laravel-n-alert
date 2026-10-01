@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Alert;
 
+use App\Livewire\Category\Create as CategoryCreate;
 use App\Models\Alert;
 use App\Models\Category;
 use App\Models\Tag;
@@ -43,4 +44,9 @@ class Create extends Component
 
     #[On('category-created')]
     public function refresh() {}
+
+    public function showCategoryCreateForm()
+    {
+        $this->dispatch('show')->to(CategoryCreate::class);
+    }
 }

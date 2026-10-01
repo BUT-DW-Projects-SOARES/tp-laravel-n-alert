@@ -29,6 +29,7 @@
                             <option value="{{ $category->id }}">{{ $category->label }}</option>
                         @endforeach
                     </select>
+                    <button class="btn btn-sm" type="button" wire:click="showCategoryCreateForm" style="margin-top: 0.5rem;">+ Add new category</button>
                     <x-form.validation-error value="category_id" />
                 </div>
                 
