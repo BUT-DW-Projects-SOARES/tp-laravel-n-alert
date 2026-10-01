@@ -37,8 +37,6 @@ class Create extends Component
         $alert = Alert::create($data);
         $alert->tags()->attach($data['related_tags']);
         $this->reset();
-        
-        // Let's emit an event so the search component can refresh its list! Wait, in Livewire 3 we can dispatch events. But let's just stick to the professor's code.
-        // Wait, the professor's code just resets it. Let's stick to the professor's code exactly.
+        $this->dispatch('alert-created');
     }
 }

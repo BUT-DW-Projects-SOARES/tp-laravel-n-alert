@@ -8,6 +8,7 @@ use App\Models\Tag;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Session;
 use Livewire\Attributes\Url;
 use Livewire\Attributes\Validate;
@@ -55,4 +56,7 @@ class Search extends Component
     {
         $this->reset();
     }
+
+    #[On('alert-created')]
+    public function refresh() {}
 }
