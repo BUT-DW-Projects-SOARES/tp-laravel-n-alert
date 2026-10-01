@@ -58,5 +58,6 @@ class Search extends Component
     }
 
     #[On('alert-created')]
+    #[On('category-created')]
     public function refresh() {}
 }

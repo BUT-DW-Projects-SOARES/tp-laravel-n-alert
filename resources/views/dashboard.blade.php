@@ -8,5 +8,8 @@
 
     <livewire:alert.search />
 
-    <livewire:alert.create />
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; align-items: start;">
+        <livewire:alert.create />
+        <livewire:category.create />
+    </div>
 </x-layout.base>

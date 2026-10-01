@@ -6,6 +6,7 @@ use App\Models\Alert;
 use App\Models\Category;
 use App\Models\Tag;
 use Illuminate\Support\Facades\Gate;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Create extends Component
@@ -39,4 +40,7 @@ class Create extends Component
         $this->reset();
         $this->dispatch('alert-created');
     }
+
+    #[On('category-created')]
+    public function refresh() {}
 }

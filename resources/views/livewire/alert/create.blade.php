@@ -1,6 +1,6 @@
 <div>
     @can('create', App\Models\Alert::class)
-        <div class="glass-card mt-8">
+        <div class="glass-card">
             <h2 class="mb-4">Quick Create Alert</h2>
             <form wire:submit="createAlert">
                 <div class="form-group">
