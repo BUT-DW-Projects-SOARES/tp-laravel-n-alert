@@ -42,5 +42,8 @@ class Create extends Component
     }
 
     #[On('category-created')]
-    public function refresh() {}
+    public function refresh(int $id)
+    {
+        $this->category_id = $id;
+    }
 }

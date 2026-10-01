@@ -26,7 +26,7 @@ class Create extends Component
         $data = $this->validate();
         Category::create($data);
         $this->reset();
-        $this->dispatch('category-created');
+        $this->dispatch('category-created', $category->id);
     }
 
     #[On('show')]
