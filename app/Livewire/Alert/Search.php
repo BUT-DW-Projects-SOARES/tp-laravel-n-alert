@@ -13,7 +13,6 @@ use Livewire\Attributes\Url;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
-#[Layout('components.layout.base', ['title' => 'Dashboard'])]
 class Search extends Component
 {
     #[Session()]
@@ -32,12 +31,6 @@ class Search extends Component
     #[Url('c')]
     #[Validate('nullable|integer|exists:categories,id')]
     public ?string $selected_category = null;
-
-    public ?string $new_alert_title = null;
-    public ?string $new_alert_published_at = null;
-    public ?string $new_alert_description = null;
-    public ?string $new_alert_category_id = null;
-    public array $new_alert_tags = [];
 
     public function render()
     {
@@ -61,26 +54,5 @@ class Search extends Component
     public function resetForm()
     {
         $this->reset();
-    }
-
-    public function createAlert()
-    {
-        Gate::authorize('create', Alert::class);
-        $data = $this->validate([
-            'new_alert_title' => 'required',
-            'new_alert_description' => 'nullable',
-            'new_alert_published_at' => 'required|date',
-            'new_alert_category_id' => 'nullable|integer|exists:categories,id',
-            'new_alert_tags' => 'nullable|array',
-            'new_alert_tags.*' => 'integer|exists:tags,id',
-        ]);
-        $alert = Alert::create([
-            'title' => $data['new_alert_title'],
-            'description' => $data['new_alert_description'],
-            'published_at' => $data['new_alert_published_at'],
-            'category_id' => $data['new_alert_category_id'],
-        ]);
-        $alert->tags()->attach($data['new_alert_tags']);
-        $this->reset(['new_alert_title', 'new_alert_description', 'new_alert_published_at', 'new_alert_category_id', 'new_alert_tags']);
     }
 }

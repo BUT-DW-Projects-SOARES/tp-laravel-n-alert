@@ -1,10 +1,4 @@
 <div>
-    <div class="page-header">
-        <div>
-            <h1>Dashboard</h1>
-            <p>Live alert search and filtering.</p>
-        </div>
-    </div>
 
     <div class="glass-card mb-8" style="padding: 1.5rem;">
         <form wire:submit="$refresh">
@@ -78,59 +72,4 @@
             <p style="text-align: center; padding: 2rem;">No alerts found matching your criteria.</p>
         @endif
     </div>
-
-    @can('create', App\Models\Alert::class)
-        <div class="glass-card mt-8">
-            <h2 class="mb-4">Quick Create Alert</h2>
-            <form wire:submit="createAlert">
-                <div class="form-group">
-                    <label class="form-label">Alert Title</label>
-                    <input class="form-input" type="text" placeholder="Title" wire:model="new_alert_title">
-                    <x-form.validation-error value="new_alert_title" />
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Published At</label>
-                    <input class="form-input" type="datetime-local" placeholder="Published At" wire:model="new_alert_published_at">
-                    <x-form.validation-error value="new_alert_published_at" />
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Description</label>
-                    <textarea class="form-input" placeholder="Description" wire:model="new_alert_description" rows="3"></textarea>
-                    <x-form.validation-error value="new_alert_description" />
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Category</label>
-                    <select class="form-input" wire:model="new_alert_category_id">
-                        <option value="">-- Select Category --</option>
-                        @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->label }}</option>
-                        @endforeach
-                    </select>
-                    <x-form.validation-error value="new_alert_category_id" />
-                </div>
-                
-                @if(count($tags) > 0)
-                    <div class="form-group">
-                        <label class="form-label mb-2">Tags:</label>
-                        <div class="checkbox-group">
-                            @foreach ($tags as $tag)
-                                <label class="checkbox-label">
-                                    <input type="checkbox" wire:model="new_alert_tags" value="{{ $tag->id }}" class="checkbox-input">
-                                    {{ $tag->label }}
-                                </label>
-                            @endforeach
-                        </div>
-                        <x-form.validation-error value="new_alert_tags" />
-                    </div>
-                @endif
-                
-                <div class="mt-4">
-                    <button class="btn btn-primary" type="submit">Create Alert</button>
-                </div>
-            </form>
-        </div>
-    @endcan
 </div>

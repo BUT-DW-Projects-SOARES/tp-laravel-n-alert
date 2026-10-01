@@ -13,7 +13,7 @@ use App\Models\Customer;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn() => redirect()->route('dashboard'));
-Route::livewire('/dashboard', Search::class)->name('dashboard');
+Route::get('/dashboard', fn() => view('dashboard'))->name('dashboard');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('/alert', AlertController::class)
