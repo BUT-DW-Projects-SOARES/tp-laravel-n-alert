@@ -10,6 +10,7 @@ use App\Http\Controllers\HomeController;
 use App\Livewire\Alert\Search;
 use App\Models\Alert;
 use App\Models\Customer;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn() => redirect()->route('dashboard'));
@@ -28,6 +29,11 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::resource('/tag', TagController::class);
+
+    Route::post('/api-token', function (Request $request) {
+        $token = $request->user()->createToken('');
+        return response()->json($token->plainTextToken);
+    })->name('api-token.create');
 });
 
 Route::middleware('guest')->group(function () {
