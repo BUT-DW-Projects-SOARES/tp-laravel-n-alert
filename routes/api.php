@@ -14,5 +14,5 @@ Route::group(['as' => 'api.'], function () {
     Route::get('/alert', [AlertController::class, 'index']);
     Route::get('/alert/{alert}', [AlertController::class, 'show']);
     Route::apiResource('/category', CategoryController::class);
-    Route::apiResource('/tag', TagController::class);
+    Route::apiResource('/tag', TagController::class)->middleware('auth:sanctum');
 });
