@@ -15,3 +15,5 @@ Route::get('/alert/{alert}', [AlertController::class, 'show']);
 Route::get('/category', [CategoryController::class, 'index']);
 Route::get('/category/{category}', [CategoryController::class, 'show']);
 Route::post('/category', [CategoryController::class, 'store']);
+Route::patch('/category/{category}', [CategoryController::class, 'update']);
+Route::delete('/category/{category}', [CategoryController::class, 'destroy']);

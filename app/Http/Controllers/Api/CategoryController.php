@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -18,12 +19,22 @@ class CategoryController extends Controller
         return $category;
     }
 
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        $data = $request->validate([
-            'label' => 'required',
-        ]);
+        $data = $request->validated();
         $category = Category::create($data);
         return $category;
+    }
+
+    public function update(CategoryRequest $request, Category $category)
+    {
+        $data = $request->validated();
+        $category->update($data);
+        return $category;
+    }
+
+    public function destroy(Category $category)
+    {
+        return response()->json($category->delete());
     }
 }
