@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', fn() => redirect()->route('dashboard'));
 Route::get('/dashboard', fn() => view('dashboard'))->name('dashboard');
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('/alert', AlertController::class)
         ->withoutMiddlewareFor(['index', 'show'], 'auth');
 
@@ -31,7 +31,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/tag', TagController::class);
 
     Route::post('/api-token', function (Request $request) {
-        $token = $request->user()->createToken('');
+        $token = $request->user()->createToken('', ['tag.view','tag.delete']);
         return response()->json($token->plainTextToken);
     })->name('api-token.create');
 });
