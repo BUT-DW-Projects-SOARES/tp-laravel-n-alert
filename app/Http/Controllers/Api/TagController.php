@@ -11,26 +11,26 @@ class TagController extends Controller
 {
     public function index()
     {
-        return Tag::all();
+        return Tag::paginate(5)->toResourceCollection();
     }
 
     public function show(Tag $tag)
     {
-        return $tag;
+        return $tag->toResource();
     }
 
     public function store(TagRequest $request)
     {
         $data = $request->validated();
         $tag = Tag::create($data);
-        return $tag;
+        return $tag->toResource();
     }
 
     public function update(TagRequest $request, Tag $tag)
     {
         $data = $request->validated();
         $tag->update($data);
-        return $tag;
+        return $tag->toResource();
     }
 
     public function destroy(Tag $tag)
