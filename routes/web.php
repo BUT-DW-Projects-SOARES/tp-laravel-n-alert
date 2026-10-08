@@ -30,11 +30,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
 
     Route::resource('/tag', TagController::class);
-
-    Route::post('/api-token', function (Request $request) {
-        $token = $request->user()->createToken('', ['tag.view','tag.delete']);
-        return response()->json($token->plainTextToken);
-    })->name('api-token.create');
 });
 
 Route::middleware('guest')->group(function () {
