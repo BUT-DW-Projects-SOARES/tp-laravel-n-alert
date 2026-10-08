@@ -10,7 +10,7 @@ class AlertController extends Controller
 {
     public function index()
     {
-        return Alert::all();
+        return Alert::query()->userFiltered()->get();
     }
 
     public function show(Alert $alert)

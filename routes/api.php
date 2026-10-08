@@ -11,10 +11,10 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::group(['as' => 'api.'], function () {
+Route::group(['as' => 'api.', 'middleware'=>'auth:sanctum'], function () {
     Route::get('/alert', [AlertController::class, 'index']);
     Route::get('/alert/{alert}', [AlertController::class, 'show']);
     Route::apiResource('/category', CategoryController::class);
-    Route::apiResource('/tag', TagController::class)->middleware('auth:sanctum');
-    Route::apiResource('/customer.contact', ContactController::class)->middleware('auth:sanctum');
+    Route::apiResource('/tag', TagController::class);
+    Route::apiResource('/customer.contact', ContactController::class);
 });
