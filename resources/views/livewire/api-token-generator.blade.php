@@ -8,9 +8,32 @@
         <div>
             <div x-show="open"
                 class="absolute top-0 left-0 z-10 w-screen h-screen flex items-center justify-center" style="background: rgba(0,0,0,0.5);">
-                <div class="glass-card p-8 space-y-4" style="min-width: 300px;">
-                    <h2 style="color: var(--text-main);">Generate new token</h2>
-                    <p><button class="btn btn-primary" wire:click="generate">Go!</button></p>
+                <div class="glass-card p-8 space-y-4" style="min-width: 400px; max-height: 90vh; overflow-y: auto;">
+                    <form wire:submit="generate">
+                        <h2 style="color: var(--text-main); margin-bottom: 1.5rem;">Generate new token</h2>
+                        
+                        <div class="form-group mb-4">
+                            <label class="form-label">Token Name</label>
+                            <input class="form-input" placeholder="e.g. Mobile App" wire:model="token_name">
+                            <x-form.validation-error value="token_name" />
+                        </div>
+                        
+                        <div class="form-group mb-4">
+                            <label class="form-label mb-2 block">Abilities</label>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                                @foreach ($abilities as $ability)
+                                    <label class="checkbox-label" style="display: flex; align-items: center;">
+                                        <input wire:model="token_abilities" type="checkbox" value="{{ $ability }}" class="checkbox-input" style="margin-right: 0.5rem;"> 
+                                        <span style="font-size: 0.85rem;">{{ $ability }}</span>
+                                    </label>
+                                @endforeach
+                            </div>
+                            <x-form.validation-error value="token_abilities" />
+                        </div>
+                        
+                        <p><button type="submit" class="btn btn-primary" style="width: 100%;">Go!</button></p>
+                    </form>
+                    
                     @if ($token)
                         <div class="mt-4 p-4 rounded" style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2);">
                             <p style="color: var(--text-muted); font-size: 0.875rem;">Generated token:</p>
@@ -18,7 +41,7 @@
                         </div>
                     @endif
                     <div class="mt-4 flex justify-end">
-                        <button class="btn btn-secondary" x-on:click="open = false; $wire.set('token','')">Close</button>
+                        <button class="btn btn-secondary" x-on:click="open = false; $wire.resetForm()">Close</button>
                     </div>
                 </div>
             </div>
