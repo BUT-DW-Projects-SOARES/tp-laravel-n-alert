@@ -18,6 +18,11 @@ class ContactPolicy
         return $user->role === UserRole::Admin;
     }
 
+    public function viewOwned(User $user, Customer $customer): bool
+    {
+        return $user->role === UserRole::Customer && $customer->user_id === $user->id;
+    }
+
     /**
      * Determine whether the user can view the model.
      */

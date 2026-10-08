@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AlertController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\TagController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,4 +16,5 @@ Route::group(['as' => 'api.'], function () {
     Route::get('/alert/{alert}', [AlertController::class, 'show']);
     Route::apiResource('/category', CategoryController::class);
     Route::apiResource('/tag', TagController::class)->middleware('auth:sanctum');
+    Route::apiResource('/customer.contact', ContactController::class)->middleware('auth:sanctum');
 });
