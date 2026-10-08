@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAlertRequest;
 use App\Http\Requests\UpdateAlertRequest;
+use App\Mail\AlertCreated;
 use App\Models\Alert;
 use App\Models\Category;
 use App\Models\Tag;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 
 class AlertController extends Controller
 {
@@ -43,6 +45,7 @@ class AlertController extends Controller
         if (isset($data['tags'])) {
             $alert->tags()->attach($data['tags']);
         }
+        Mail::to('julien.issler@unistra.fr')->send(new AlertCreated($alert));
         return redirect()->route('alert.show', ['alert' => $alert]);
     }
 
