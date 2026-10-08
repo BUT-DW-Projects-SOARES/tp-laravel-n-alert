@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Enums\Enums\UserRole;
 use App\Models\Contact;
+use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
@@ -22,15 +23,17 @@ class ContactPolicy
      */
     public function view(User $user, Contact $contact): bool
     {
-        return $user->role === UserRole::Admin;
+        return $user->role === UserRole::Admin
+            || ($user->role === UserRole::Customer && $user->customer->id === $contact->customer_id);
     }
 
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(User $user, Customer $customer): bool
     {
-        return $user->role === UserRole::Admin;
+        return $user->role === UserRole::Admin
+            || ($user->role === UserRole::Customer && $customer->user_id == $user->id);
     }
 
     /**
@@ -38,7 +41,8 @@ class ContactPolicy
      */
     public function update(User $user, Contact $contact): bool
     {
-        return $user->role === UserRole::Admin;
+        return $user->role === UserRole::Admin
+            || ($user->role === UserRole::Customer && $user->customer->id === $contact->customer_id);
     }
 
     /**
@@ -46,7 +50,8 @@ class ContactPolicy
      */
     public function delete(User $user, Contact $contact): bool
     {
-        return $user->role === UserRole::Admin;
+        return $user->role === UserRole::Admin
+            || ($user->role === UserRole::Customer && $user->customer->id === $contact->customer_id);
     }
 
     /**

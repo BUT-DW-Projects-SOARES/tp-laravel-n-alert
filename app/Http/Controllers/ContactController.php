@@ -15,7 +15,7 @@ class ContactController extends Controller
      */
     public function create(Customer $customer)
     {
-        Gate::authorize('create', Contact::class);
+        Gate::authorize('create', [Contact::class, $customer]);
         return view('contact.create', ['customer' => $customer]);
     }
 
@@ -24,7 +24,7 @@ class ContactController extends Controller
      */
     public function store(ContactRequest $request, Customer $customer)
     {
-        Gate::authorize('create', Contact::class);
+        Gate::authorize('create', [Contact::class, $customer]);
         $data = $request->validated();
         $contact = new Contact();
         $contact->fill($data);

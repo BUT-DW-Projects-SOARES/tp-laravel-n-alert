@@ -104,6 +104,7 @@ class CustomerController extends Controller
     {
         Gate::authorize('delete', $customer);
         $customer->delete();
+        $customer->user()->delete();
         return redirect()->route('customer.index');
     }
 }

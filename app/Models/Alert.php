@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
+use App\Enums\Enums\UserRole;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\Auth;
 
 class Alert extends Model
 {
@@ -30,5 +34,19 @@ class Alert extends Model
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class);
+    }
+
+    #[Scope]
+    protected function userFiltered(Builder $query, ?User $user = null)
+    {
+        $user ??= Auth::user();
+        return $query->when(
+            $user?->role === UserRole::Customer,
+            fn(Builder $query) => $query
+                ->whereHas(
+                    'tags',
+                    fn($query) => $query->whereIn('id', $user->customer->tags->pluck('id'))
+                )
+        );
     }
 }

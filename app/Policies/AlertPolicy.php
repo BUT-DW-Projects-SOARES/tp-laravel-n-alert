@@ -6,6 +6,7 @@ use App\Enums\Enums\UserRole;
 use App\Models\Alert;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Database\Eloquent\Builder;
 
 class AlertPolicy
 {
@@ -22,7 +23,17 @@ class AlertPolicy
      */
     public function view(?User $user, Alert $alert): bool
     {
-        return !$user || $user->role === UserRole::Admin;
+        if (!$user || $user->role === UserRole::Admin) {
+            return true;
+        }
+        if ($user->role === UserRole::Customer) {
+            return $alert
+                ->whereKey($alert)
+                ->whereHas('tags.customers', fn(Builder $query) => $query
+                    ->whereKey($user->customer))
+                ->exists();
+        }
+        return false;
     }
 
     /**

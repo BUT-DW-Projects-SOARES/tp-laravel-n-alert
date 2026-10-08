@@ -1,7 +1,9 @@
 <x-layout.base title="Alert {{ $alert->title }}">
     <div class="page-header flex justify-between items-start">
         <div>
-            <p><a href="{{ route('alert.index') }}" style="color: var(--accent-blue);">&larr; Back to alerts</a></p>
+            @can('viewAny', App\Models\Alert::class)
+                <p><a href="{{ route('alert.index') }}" style="color: var(--accent-blue);">&larr; Back to alerts</a></p>
+            @endcan
             <h1 class="mt-4">{{ $alert->title }}</h1>
             <p class="text-muted">Alert ID: #{{ $alert->id }}</p>
         </div>

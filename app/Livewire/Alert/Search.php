@@ -35,9 +35,10 @@ class Search extends Component
 
     public function render()
     {
-        $tags = Tag::all();
+        $tags = Tag::query()->userFiltered()->get();
+        $categories = Category::query()->userFiltered()->get();
 
-        $alerts = Alert::with(['category'])
+        $alerts = Alert::query()->userFiltered()->with(['category'])
             ->where('title', 'like', '%' . $this->keywords . '%')
             ->when(!empty($this->selected_tags), function (Builder $query) {
                 $query->whereHas('tags', function (Builder $query) {
@@ -49,7 +50,7 @@ class Search extends Component
             })
             ->get();
 
-        return view('livewire.alert.search', ['tags' => $tags, 'categories' => Category::all(), 'alerts' => $alerts]);
+        return view('livewire.alert.search', ['tags' => $tags, 'categories' => $categories, 'alerts' => $alerts]);
     }
 
     public function resetForm()

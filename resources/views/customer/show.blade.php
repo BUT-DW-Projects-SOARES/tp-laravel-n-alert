@@ -1,7 +1,9 @@
 <x-layout.base title="Customer {{ $customer->label }}">
     <div class="page-header">
         <div>
-            <p><a href="{{ route('customer.index') }}" style="color: var(--accent-blue);">&larr; Back to customers</a></p>
+            @can('viewAny', App\Models\Customer::class)
+                <p><a href="{{ route('customer.index') }}" style="color: var(--accent-blue);">&larr; Back to customers</a></p>
+            @endcan
             <h1 class="mt-4">{{ $customer->label }}</h1>
             <p>Customer ID: #{{ $customer->id }}</p>
         </div>
@@ -39,7 +41,7 @@
     <div class="glass-card mb-8">
         <div class="flex items-center justify-between mb-4">
             <h2>Contacts</h2>
-            @can('create', App\Models\Contact::class)
+            @can('create', [App\Models\Contact::class, $customer])
                 <a href="{{ route('contact.create', ['customer' => $customer]) }}" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
                     + Add Contact
                 </a>
@@ -64,7 +66,7 @@
                                 <a href="{{ route('contact.edit', ['customer' => $customer, 'contact' => $contact]) }}" class="btn btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">Edit</a>
                             @endcan
                             @can('delete', $contact)
-                                <form action="{{ route('contact.destroy', ['customer' => $customer, 'contact' => $contact]) }}" method="POST" style="display:inline;">
+                                <form action="{{ route('contact.destroy', ['customer' => $customer, 'contact' => $contact]) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this contact?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn" style="padding: 0.4rem 0.8rem; font-size: 0.8rem; background: rgba(239, 68, 68, 0.1); color: var(--text-danger); border: 1px solid rgba(239, 68, 68, 0.2);">Delete</button>
