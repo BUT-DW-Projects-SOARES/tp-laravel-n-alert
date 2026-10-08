@@ -41,6 +41,12 @@
             </div>
             
             <div class="form-group mb-8">
+                <label class="form-label">Password (for client login)</label>
+                <input class="form-input" type="password" name="password" placeholder="Password">
+                <x-form.validation-error value="password" />
+            </div>
+
+            <div class="form-group mb-8">
                 <label class="form-label">Phone (Optional)</label>
                 <input class="form-input" type="text" name="phone" placeholder="+1 555-0198" value="{{ old('phone') }}">
                 <x-form.validation-error value="phone" />

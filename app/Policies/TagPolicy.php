@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\Enums\UserRole;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -13,7 +14,7 @@ class TagPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->tokenCan('tag.view');
+        return $user->tokenCan('tag.view') && $user->role === UserRole::Admin;
     }
 
     /**
@@ -21,7 +22,7 @@ class TagPolicy
      */
     public function view(User $user, Tag $tag): bool
     {
-        return $user->tokenCan('tag.view');
+        return $user->tokenCan('tag.view') && $user->role === UserRole::Admin;
     }
 
     /**
@@ -29,7 +30,7 @@ class TagPolicy
      */
     public function create(User $user): bool
     {
-        return $user->tokenCan('tag.create');
+        return $user->tokenCan('tag.create') && $user->role === UserRole::Admin;
     }
 
     /**
@@ -37,7 +38,7 @@ class TagPolicy
      */
     public function update(User $user, Tag $tag): bool
     {
-        return $user->tokenCan('tag.update');
+        return $user->tokenCan('tag.update') && $user->role === UserRole::Admin;
     }
 
     /**
@@ -45,7 +46,7 @@ class TagPolicy
      */
     public function delete(User $user, Tag $tag): bool
     {
-        return $user->tokenCan('tag.delete');
+        return $user->tokenCan('tag.delete') && $user->role === UserRole::Admin;
     }
 
     /**

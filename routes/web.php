@@ -14,9 +14,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn() => redirect()->route('dashboard'));
-Route::get('/dashboard', fn() => view('dashboard'))->name('dashboard');
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/dashboard', fn() => view('dashboard'))->name('dashboard');
+
     Route::resource('/alert', AlertController::class)
         ->withoutMiddlewareFor(['index', 'show'], 'auth');
 

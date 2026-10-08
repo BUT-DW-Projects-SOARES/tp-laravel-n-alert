@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\Enums\UserRole;
 use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -13,7 +14,7 @@ class CustomerPolicy
      */
     public function viewAny(User $user): bool
     {
-        return true;
+        return $user->role === UserRole::Admin;
     }
 
     /**
@@ -21,7 +22,7 @@ class CustomerPolicy
      */
     public function view(User $user, Customer $customer): bool
     {
-        return true;
+        return $user->role === UserRole::Admin || ($user->role === UserRole::Customer && $customer->user_id == $user->id);
     }
 
     /**
@@ -29,7 +30,7 @@ class CustomerPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->role === UserRole::Admin;
     }
 
     /**
@@ -37,7 +38,7 @@ class CustomerPolicy
      */
     public function update(User $user, Customer $customer): bool
     {
-        return true;
+        return $user->role === UserRole::Admin;
     }
 
     /**
@@ -45,7 +46,7 @@ class CustomerPolicy
      */
     public function delete(User $user, Customer $customer): bool
     {
-        return true;
+        return $user->role === UserRole::Admin;
     }
 
     /**

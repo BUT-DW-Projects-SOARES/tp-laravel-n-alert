@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Enums\UserRole;
 use App\Http\Requests\CustomerRequest;
 use App\Models\Contact;
 use App\Models\Customer;
 use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -36,9 +38,14 @@ class CustomerController extends Controller
         Gate::authorize('create', Customer::class);
         $data = $request->validated();
 
-        $customer = new Customer();
-        $customer->fill(['label' => $data['label']]);
-        $customer->save();
+        $user = User::create([
+            'name' => $data['prenom'] . ' ' . $data['nom'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+            'role' => UserRole::Customer,
+        ]);
+
+        $customer = $user->customer()->create(['label' => $data['label']]);
 
         $contact = new Contact();
         $contact->fill([
@@ -50,9 +57,7 @@ class CustomerController extends Controller
         ]);
         $contact->save();
 
-        if (isset($data['tags'])) {
-            $customer->tags()->attach($data['tags']);
-        }
+        $customer->tags()->attach($data['tags'] ?? null);
 
         return redirect()->route('customer.index');
     }

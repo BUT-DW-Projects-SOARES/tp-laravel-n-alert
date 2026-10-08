@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\Enums\UserRole;
 use App\Models\Alert;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -13,7 +14,7 @@ class AlertPolicy
      */
     public function viewAny(?User $user): bool
     {
-        return true;
+        return !$user || $user->role === UserRole::Admin;
     }
 
     /**
@@ -21,7 +22,7 @@ class AlertPolicy
      */
     public function view(?User $user, Alert $alert): bool
     {
-        return true;
+        return !$user || $user->role === UserRole::Admin;
     }
 
     /**
@@ -29,7 +30,7 @@ class AlertPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->role === UserRole::Admin;
     }
 
     /**
@@ -37,7 +38,7 @@ class AlertPolicy
      */
     public function update(User $user, Alert $alert): bool
     {
-        return true;
+        return $user->role === UserRole::Admin;
     }
 
     /**
@@ -45,7 +46,7 @@ class AlertPolicy
      */
     public function delete(User $user, Alert $alert): bool
     {
-        return true;
+        return $user->role === UserRole::Admin;
     }
 
     /**
