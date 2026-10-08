@@ -1,0 +1,13 @@
+type Alert{
+    id: ID!
+    title: String!
+    description: String
+}
+
+extend type Query{
+    "fetch all alerts"
+    alerts: [Alert!]! @all
+
+    "get alert by id"
+    alert(id: ID! @eq): Alert @find
+}
