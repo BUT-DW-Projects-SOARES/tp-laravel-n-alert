@@ -1,0 +1,14 @@
+type Tag{
+    id: ID!
+    label: String!
+}
+
+extend type Query{
+    tags: [Tag!]! @all
+    tag(id: ID! @eq): Tag! @find
+}
+
+extend type Mutation{
+    tagCreate(label: String!): Tag! @create
+    tagUpdate(id: ID!, label: String!): Tag! @update
+}

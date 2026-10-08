@@ -2,6 +2,7 @@ type Alert{
     id: ID!
     title: String!
     description: String
+    tags: [Tag!] @belongsToMany
 }
 
 extend type Query{
